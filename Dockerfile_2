@@ -18,7 +18,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # 🔹 Clone repo en haal de juiste scripts
-RUN git clone https://github.com/tolmalex001/shuffle_2.git /app/code && \
+RUN git clone https://github.com/alextolm001/shuffle_2.git /app/code && \
     cp /app/code/final_ranking.py . && \
     cp /app/code/verify_winner_mode.py .
 
