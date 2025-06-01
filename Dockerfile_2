@@ -1,1 +1,26 @@
+# 🔹 Basisimage met Python 3.8 en Debian Bullseye
+FROM python:3.8-bullseye
 
+# 🔹 Werkmap instellen
+WORKDIR /app
+
+# 🔹 Java installeren (voor eventuele Spark-verwerking)
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends openjdk-11-jre-headless git && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# 🔹 Zet JAVA_HOME (vereist door Spark)
+ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+ENV PATH="${JAVA_HOME}/bin:${PATH}"
+
+# 🔹 Kopieer requirements en installeer dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# 🔹 Clone repo en haal de juiste scripts
+RUN git clone https://github.com/tolmalex001/shuffle_2.git /app/code && \
+    cp /app/code/final_ranking.py . && \
+    cp /app/code/verify_winner_mode.py .
+
+# 🔹 Start beide scripts (correcte chaining met `&&`)
+CMD python final_ranking.py && python verify_winner_mode.py
