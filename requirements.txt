@@ -1,5 +1,6 @@
 RUN pip install --no-cache-dir \
     pandas \
+    pyspark \
     matplotlib \
     google-api-python-client \
     google-auth \
