@@ -22,5 +22,5 @@ RUN git clone https://github.com/tolmalex001/shuffle_2.git /app/code && \
     cp /app/code/final_ranking.py . && \
     cp /app/code/verify_winner_mode.py .
 
-# 🔹 Start beide scripts (correcte chaining met `&&`)
-CMD python final_ranking.py && python verify_winner_mode.py
+# 🔹 Start beide scripts in volgorde via shell
+CMD sh -c "python final_ranking.py && python verify_winner_mode.py"
